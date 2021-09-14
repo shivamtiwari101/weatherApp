@@ -29,6 +29,9 @@ app.get("/about",(req,res)=>{
 app.get("/weather",(req,res)=>{
     res.render("weather");
 });
+app.get("/covid",(req,res)=>{
+    res.render("covid");
+});
 app.get("*",(req,res)=>{
     res.render('404error',{
         errormsg:'Opps! Page Not Found',
