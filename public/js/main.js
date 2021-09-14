@@ -110,7 +110,7 @@ navigator.geolocation.getCurrentPosition((position)=>{
  
   long=position.coords.longitude;   
  lat=position.coords.latitude;
-const proxy="https://robwu.nl/dump.php";
+ 
 
   const api=`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&exclude={part}&appid=16d3b2b8616a52c4d4777b0123c2b1c3`;
   
@@ -162,3 +162,4 @@ datahide.classList.remove('data_hide');
  }
 )}
 });
+

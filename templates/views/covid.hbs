@@ -5,11 +5,46 @@
 </head>
 <body>
   {{>navbar}}
-<div>
-<h1>Covid 19 data<h1>
+<div class="container">
+<h1 class="text-center mt-5">Covid19 Live Data In your Country</h1>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Total Cases</th>
+      <th scope="col">Total Deaths</th>
+      <th scope="col">Total Recoverd</th>
+       
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td id="newConf"></td>
+      <td id="newDeaths"></td>
+      <td id="newRecoverd"></td>
+    </tr>
+    
+  </tbody>
+</table>
 </div>
 <!--Footer code-->
 {{>footer}}
-<script src="js/main.js"></script>
+<script>
+var newConf=document.getElementById("newConf");
+var newDeaths=document.getElementById("newDeaths");
+var newRecoverd=document.getElementById("newRecoverd");
+ 
+async function getCovidapi(){
+   const jsonData=await fetch("https://api.covid19api.com/summary");
+ const jsD=await jsonData.json();
+//console.log(jsD.Countries[76].NewConfirmed);
+//temp_real_val.innerText = arrData[0].main.temp;
+ newConf.innerText=jsD.Countries[76].NewConfirmed;
+ newDeaths.innerText=`${jsD.Countries[76].NewDeaths}`;
+ newRecoverd.innerText=`${jsD.Countries[76].NewRecovered}`;
+ 
+};
+getCovidapi()
+</script>
 </body>
 </html>
+ 
