@@ -99,3 +99,66 @@ datahide.classList.remove('data_hide');
   }
 }
 submitBtn.addEventListener('click',getInfo);
+
+window.addEventListener("load",()=>{
+  
+let long;
+let lat;
+if(navigator.geolocation)
+{
+navigator.geolocation.getCurrentPosition((position)=>{
+ 
+  long=position.coords.longitude;   
+ lat=position.coords.latitude;
+const proxy="https://robwu.nl/dump.php";
+
+  const api=`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&exclude={part}&appid=16d3b2b8616a52c4d4777b0123c2b1c3`;
+  
+   fetch(api).then((response)=>{
+        return response.json();
+     }).then(data=>{
+         const arrData=[data];
+   
+  // console.log(arrData);
+temp_real_val.innerText = arrData[0].main.temp;
+  //console.log(arrData[0].main.temp);
+ const temp_status=arrData[0].weather[0].main;
+   
+  city_name.innerText = `${arrData[0].name}, ${arrData[0].sys.country}`;
+const id=arrData[0].weather[0].id;
+//Condition check for weather status
+//console.log(id);
+  if(id<300 && id>200){
+//thunder-strome
+  tempStatus.innerHTML="<i class='fas fa-wind' style='color: #f1f2f6;'></i>";
+    }
+ else if(id<400 && id>300){
+       //cloud
+tempStatus.innerHTML="<i class='fas  fa-cloud' style='color: #f1f2f6;'></i>";
+    }
+
+else if(id<600 && id>500){
+       //rain
+tempStatus.innerHTML="<i class='fas  fa-cloud-rain' style='color: #a4b0be;'></i>";
+    }
+else if(id<700 && id>600){
+      //snow
+tempStatus.innerHTML="<i class='fas fa-igloo' style='color: #a4b0be;'></i>";
+    }
+
+else if(id<800 && id>700){
+//cloud
+tempStatus.innerHTML="<i class='fas  fa-cloud' style='color: #f1f2f6;'></i>";
+       
+    }
+else{
+     //sun
+tempStatus.innerHTML="<i class='fas  fa-sun' style='color: #eccc68;'></i>";
+       
+}
+datahide.classList.remove('data_hide');
+
+     }) 
+ }
+)}
+});
